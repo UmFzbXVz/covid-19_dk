@@ -46,7 +46,6 @@ def statens_seruminstitut():
     personer_smittet_i_danmark = table[2].find(text=True) #Antal smittede i Danmark
     personer_raske_i_danmark = table[3].find(text=True) #Antal raskmeldte i Danmark
     personer_doede_i_danmark = table[4].find(text=True) #Antal døde i Danmark
-    #updateTimestamp = soup.findAll('p')[3].find(text=True) #Tidspunkt for sidste opdatering af hjemmesiden
     updateTimestamp = str(datetime.now().strftime("%d. %B kl. %H:%M"))
 
     printStats(personer_smittet_i_danmark, personer_testet_i_danmark, personer_doede_i_danmark, personer_raske_i_danmark, updateTimestamp + " " + dagligRapport())
@@ -71,7 +70,6 @@ while True:
     try:
         statens_seruminstitut() #Opdatér globale variable med nyeste statistikker
     except Exception as e:
-        print(e)
         now = datetime.now()
         print("[!] " + str(now.hour).strip() + "." + str(now.minute).strip() + ": Kunne ikke hente statistikkerne. Prøver igen om lidt..")
     time.sleep(60.0 - ((time.time() - starttime) % 60.0)) #Re-download nyeste data efter 60 sekunder
